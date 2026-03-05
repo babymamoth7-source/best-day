@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>병현 생일 🎂</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+overflow:hidden;
+color:white;
+padding:20px;
+}
+
+.container{
+position:relative;
+z-index:10;
+background:rgba(0,0,0,0.25);
+padding:40px 30px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+max-width:420px;
+width:100%;
+}
+
+h1{
+font-size:34px;
+margin-bottom:15px;
+min-height:48px;
+}
+
+p{
+font-size:18px;
+margin-bottom:22px;
+line-height:1.5;
+}
+
+button{
+padding:14px 28px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4b7d;
+font-weight:bold;
+cursor:pointer;
+transition:0.25s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+video{
+margin-top:20px;
+border-radius:15px;
+display:none;
+width:100%;
+max-height:420px;
+object-fit:cover;
+}
+
+.made{
+margin-top:20px;
+font-size:13px;
+opacity:0.85;
+}
+
+/* 풍선 */
+
+.balloon{
+position:absolute;
+bottom:-160px;
+font-size:42px;
+animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0) translateX(0);
+}
+25%{
+transform:translateY(-25vh) translateX(-12px);
+}
+50%{
+transform:translateY(-50vh) translateX(12px);
+}
+75%{
+transform:translateY(-80vh) translateX(-10px);
+}
+100%{
+transform:translateY(-120vh) translateX(10px);
+}
+}
+
+/* 케이크 */
+
+.cake{
+font-size:70px;
+margin-top:20px;
+display:none;
+animation:cakePop 1s ease;
+}
+
+@keyframes cakePop{
+0%{transform:scale(0)}
+80%{transform:scale(1.2)}
+100%{transform:scale(1)}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="title"></h1>
+
+<p>
+오늘 하루 행복하게 보내고<br>
+앞으로 더 행복하자<br>
+🍀 생일 축하해 🍀
+</p>
+
+<button onclick="celebrate()">축하받기</button>
+
+<video id="video" controls>
+<source src="87483.mp4" type="video/mp4">
+</video>
+
+<div id="cake" class="cake">
+🎂
+</div>
+
+<br>
+
+<button id="restart" onclick="restart()" style="display:none;margin-top:15px;">
+다시 보기
+</button>
+
+<div class="made">
+made by. 하린
+</div>
+
+</div>
+
+<!-- 풍선 -->
+
+<div class="balloon" style="left:8%;animation-duration:8s;">🎈</div>
+<div class="balloon" style="left:20%;animation-duration:10s;">🎈</div>
+<div class="balloon" style="left:32%;animation-duration:9s;">🎈</div>
+<div class="balloon" style="left:44%;animation-duration:11s;">🎈</div>
+<div class="balloon" style="left:56%;animation-duration:8s;">🎈</div>
+<div class="balloon" style="left:68%;animation-duration:10s;">🎈</div>
+<div class="balloon" style="left:80%;animation-duration:9s;">🎈</div>
+<div class="balloon" style="left:92%;animation-duration:11s;">🎈</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+let text="🤍HAPPY 병현 DAY🤍"
+let i=0
+
+function type(){
+if(i<text.length){
+document.getElementById("title").innerHTML+=text.charAt(i)
+i++
+setTimeout(type,80)
+}
+}
+
+type()
+
+function celebrate(){
+
+confetti({
+particleCount:150,
+spread:120,
+origin:{y:0.6},
+colors:["#ff4b7d","#ff7aa2","#ff9dbb"]
+})
+
+let video=document.getElementById("video")
+
+video.style.display="block"
+video.play()
+
+video.onended=function(){
+bigFireworks()
+}
+
+}
+
+function bigFireworks(){
+
+let duration=5000
+let end=Date.now()+duration
+
+let interval=setInterval(function(){
+
+confetti({
+particleCount:120,
+spread:200,
+startVelocity:55,
+origin:{
+x:Math.random(),
+y:Math.random()-0.2
+}
+})
+
+if(Date.now()>end){
+
+clearInterval(interval)
+
+let cake=document.getElementById("cake")
+cake.style.display="block"
+
+document.getElementById("restart").style.display="inline-block"
+
+}
+
+},350)
+
+}
+
+function restart(){
+location.reload()
+}
+
+</script>
+
+</body>
+</html>
